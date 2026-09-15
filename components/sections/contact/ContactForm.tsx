@@ -126,7 +126,7 @@ export function ContactForm() {
           {state.status !== "idle" && state.message && (
             <p
               className={cn(
-                "enter-rise rounded-md border px-4 py-3 text-sm [--entrance-duration:240ms] [--entrance-rise:0.5rem]",
+                "enter-rise rounded-md border px-4 py-3 text-sm [--entrance-duration:400ms] [--entrance-rise:0.5rem]",
                 state.status === "success"
                   ? "border-hairline bg-background/40 text-on-surface"
                   : "border-destructive/40 text-destructive",

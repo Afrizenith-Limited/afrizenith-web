@@ -66,7 +66,7 @@ export function ContactField({
       {error && (
         <p
           id={errorId}
-          className="enter-rise text-sm text-destructive [--entrance-duration:180ms] [--entrance-rise:0.25rem]"
+          className="enter-rise text-sm text-destructive [--entrance-duration:300ms] [--entrance-rise:0.25rem]"
         >
           {error}
         </p>

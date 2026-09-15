@@ -36,7 +36,7 @@
    hydration — the hero must never wait on JS to become visible. Scroll reveals
    below the fold go through <Reveal> instead. */
 :root {
-  --entrance-duration: 500ms;
+  --entrance-duration: 850ms;
   --entrance-rise: 1rem;
 }
 

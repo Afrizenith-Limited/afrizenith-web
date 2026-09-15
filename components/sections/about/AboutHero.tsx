@@ -45,7 +45,7 @@ export function AboutHero() {
               className="enter-rise"
             />
 
-            <div className="enter-rise mt-8 space-y-5 text-on-surface-mute delay-150">
+            <div className="enter-rise mt-8 space-y-5 text-on-surface-mute delay-200">
               <p className="max-w-xl">
                 AfriZenith is a digital solutions company passionate about
                 helping businesses use technology, strategy and creativity to
@@ -61,7 +61,7 @@ export function AboutHero() {
           {/* The mark sits left so the pillars card overlaps only its edge,
               as in the design, rather than covering it. */}
           <div className="relative lg:mb-16">
-            <div className="enter-fade flex justify-center py-4 delay-100 lg:block lg:py-0">
+            <div className="enter-fade flex justify-center py-4 delay-150 lg:block lg:py-0">
               <Image
                 src="/images/logo-mark.png"
                 alt=""
@@ -72,7 +72,7 @@ export function AboutHero() {
             </div>
 
             <div className="mt-6 lg:absolute lg:right-0 lg:bottom-0 lg:mt-0 lg:translate-y-1/3">
-              <div className="enter-rise delay-300">
+              <div className="enter-rise delay-500">
                 <AboutPillars />
               </div>
             </div>

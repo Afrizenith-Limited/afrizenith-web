@@ -47,13 +47,13 @@ export function HomeHero() {
               <span className="text-orange">Transform Businesses.</span>
             </h1>
 
-            <p className="enter-rise mt-6 max-w-xl text-on-surface-mute delay-150">
+            <p className="enter-rise mt-6 max-w-xl text-on-surface-mute delay-200">
               AfriZenith helps African businesses build powerful brands,
               streamline operations and grow sustainably through technology,
               strategy and creativity.
             </p>
 
-            <div className="enter-rise mt-8 flex flex-wrap gap-4 delay-200">
+            <div className="enter-rise mt-8 flex flex-wrap gap-4 delay-300">
               <CtaButton href="/contact" size="lg">
                 Let&apos;s Work Together
               </CtaButton>
@@ -67,7 +67,7 @@ export function HomeHero() {
               </CtaButton>
             </div>
 
-            <HeroTrustStrip className="enter-rise mt-12 delay-300" />
+            <HeroTrustStrip className="enter-rise mt-12 delay-500" />
           </div>
 
           <div className="relative lg:mb-12">
@@ -75,7 +75,7 @@ export function HomeHero() {
                 the skyline with no backing plate and no blend mode. */}
             {/* Fades rather than rises — the artwork is soft-edged and alpha
                 keyed, so travel would draw attention to its bounding box. */}
-            <div className="enter-fade relative aspect-square w-full delay-100">
+            <div className="enter-fade relative aspect-square w-full delay-150">
               <Image
                 src="/images/hero-map-glow.png"
                 alt="A network of connected nodes spanning a map of Africa"
@@ -89,7 +89,7 @@ export function HomeHero() {
             {/* The animation sits on an inner element so the positioning
                 transform on the wrapper is never overwritten. */}
             <div className="mt-6 lg:absolute lg:right-0 lg:bottom-0 lg:mt-0 lg:translate-y-1/4">
-              <div className="enter-rise delay-[400ms]">
+              <div className="enter-rise delay-700">
                 <MissionCard />
               </div>
             </div>

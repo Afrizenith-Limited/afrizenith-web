@@ -220,14 +220,17 @@ Motion. Reveals re-fire each time an element scrolls back into view.
 | Value | Setting |
 |---|---|
 | Entrance curve | `cubic-bezier(0.22, 1, 0.36, 1)` (`--ease-reveal`) |
-| Entrance duration | 500ms |
+| Entrance duration | 850ms |
 | Vertical travel | 28px reveals, 1rem (`--entrance-rise`) CSS entrances |
 | Horizontal travel | 48px |
-| Stagger | 80ms per item, capped at the 5th |
+| Stagger | 130ms per item, capped at the 5th |
 | Hover / focus | 200ms, ring and colour 150ms |
 
-`effect="bounce"` applies a spring for cards and tiles. Type never bounces —
-overshoot on text reads as a wobble.
+Entrances are deliberately long and hovers deliberately short. A slow hover
+reads as lag, not polish.
+
+`effect="bounce"` applies a spring (950ms, 0.3 bounce) for cards and tiles.
+Type never bounces — overshoot on text reads as a wobble.
 
 Timings live in `lib/motion.ts` and are mirrored as CSS custom properties in
 `globals.css`; change both together.

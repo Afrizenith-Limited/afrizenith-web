@@ -41,7 +41,7 @@ export default function ContactPage() {
           </div>
         </div>
 
-        <div className="enter-rise delay-150">
+        <div className="enter-rise delay-200">
           <ContactForm />
         </div>
       </div>
