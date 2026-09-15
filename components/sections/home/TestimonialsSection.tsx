@@ -1,29 +1,19 @@
-import { Quote } from "lucide-react";
 import { Section } from "@/components/layout/Section";
 import { Eyebrow } from "@/components/shared/Eyebrow";
 import { Reveal } from "@/components/motion/Reveal";
 import { TESTIMONIALS } from "@/config/testimonials";
+import { TestimonialsCarousel } from "./TestimonialsCarousel";
 
 export function TestimonialsSection() {
-  const [featured] = TESTIMONIALS;
-  if (!featured) return null;
+  if (TESTIMONIALS.length === 0) return null;
 
   return (
     <Section tone="dark" aria-labelledby="testimonials-title">
-      <Reveal from="left" className="flex gap-6">
-        <Quote
-          aria-hidden="true"
-          className="hidden size-12 shrink-0 text-orange sm:block"
-        />
-        <div>
-          <Eyebrow id="testimonials-title">What Our Clients Say</Eyebrow>
-          <blockquote className="mt-5 max-w-2xl font-heading text-xl leading-relaxed">
-            {featured.quote}
-          </blockquote>
-          <p className="mt-5 text-sm text-on-surface-mute">
-            — {featured.attribution}
-          </p>
-        </div>
+      <Reveal from="left">
+        <Eyebrow id="testimonials-title" className="sm:ml-18">
+          What Our Clients Say
+        </Eyebrow>
+        <TestimonialsCarousel items={TESTIMONIALS} />
       </Reveal>
     </Section>
   );

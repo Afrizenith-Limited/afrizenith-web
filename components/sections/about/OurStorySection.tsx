@@ -38,13 +38,17 @@ export function OurStorySection() {
         </Reveal>
 
         <Reveal from="right">
-          <div className="relative aspect-4/3 w-full overflow-hidden rounded-lg">
+          {/* Rendered at its own 1697×927 proportions rather than cropped into
+              a fixed box — a 4/3 frame cut 27% off the width, slicing the two
+              outer people and the branding on the wall. */}
+          <div className="overflow-hidden rounded-lg">
             <Image
               src="/images/the-why-photo.png"
               alt="The AfriZenith team working together around a laptop"
-              fill
+              width={1697}
+              height={927}
               sizes="(min-width: 1024px) 50vw, 100vw"
-              className="object-cover"
+              className="h-auto w-full"
             />
           </div>
         </Reveal>
