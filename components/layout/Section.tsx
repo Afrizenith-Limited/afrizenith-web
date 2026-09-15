@@ -35,7 +35,12 @@ export function Section({
     <section
       data-tone={tone}
       className={cn(
-        "bg-surface text-on-surface",
+        // overflow-x-clip contains the horizontal travel of a reveal, which
+        // would otherwise push past the container padding and scroll the page
+        // sideways. `clip` rather than `hidden`: it adds no scroll container
+        // and leaves the y axis visible, so the heroes' overlapping cards
+        // still hang below their section.
+        "overflow-x-clip bg-surface text-on-surface",
         spacingClasses[spacing],
         className,
       )}

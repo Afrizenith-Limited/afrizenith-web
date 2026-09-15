@@ -16,8 +16,10 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <Section tone="dark" spacing="loose">
+      {/* CSS entrance, not <Reveal>: this page is above the fold and the form
+          is its primary action, so nothing here should wait on hydration. */}
       <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
-        <div>
+        <div className="enter-rise">
           <SectionHeading
             id="contact-title"
             eyebrow="Get In Touch"
@@ -39,7 +41,9 @@ export default function ContactPage() {
           </div>
         </div>
 
-        <ContactForm />
+        <div className="enter-rise delay-150">
+          <ContactForm />
+        </div>
       </div>
     </Section>
   );

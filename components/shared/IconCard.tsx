@@ -26,7 +26,8 @@ export function IconCard({
   return (
     <div
       className={cn(
-        "flex h-full flex-col rounded-lg border border-hairline bg-surface-raised p-6",
+        "group/card flex h-full flex-col rounded-lg border border-hairline bg-surface-raised p-6",
+        "transition-[border-color,transform] duration-200 ease-out hover:-translate-y-0.5 hover:border-brand/40",
         centered && "items-center text-center",
         className,
       )}

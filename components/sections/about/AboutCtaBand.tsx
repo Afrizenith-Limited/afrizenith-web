@@ -1,11 +1,15 @@
 import { Send } from "lucide-react";
 import { Section } from "@/components/layout/Section";
 import { CtaButton } from "@/components/shared/CtaButton";
+import { Reveal } from "@/components/motion/Reveal";
 
 export function AboutCtaBand() {
   return (
     <Section tone="dark" spacing="compact" aria-labelledby="about-cta-title">
-      <div className="flex flex-col items-start gap-8 lg:flex-row lg:items-center lg:gap-10">
+      <Reveal
+        from="left"
+        className="flex flex-col items-start gap-8 lg:flex-row lg:items-center lg:gap-10"
+      >
         <span className="inline-flex size-16 shrink-0 items-center justify-center rounded-full border border-orange/40">
           <Send aria-hidden="true" className="size-6 text-orange" />
         </span>
@@ -26,7 +30,7 @@ export function AboutCtaBand() {
         <CtaButton href="/contact" size="lg">
           Start a Project
         </CtaButton>
-      </div>
+      </Reveal>
     </Section>
   );
 }

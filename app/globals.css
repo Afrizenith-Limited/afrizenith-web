@@ -27,6 +27,40 @@
   --color-slate: #6b7280;
 
   --container-content: 75rem;
+
+  /* Motion. --ease-reveal is mirrored in lib/motion.ts — keep the two in sync. */
+  --ease-reveal: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Above-the-fold entrances are CSS so they run at first paint, before
+   hydration — the hero must never wait on JS to become visible. Scroll reveals
+   below the fold go through <Reveal> instead. */
+:root {
+  --entrance-duration: 500ms;
+  --entrance-rise: 1rem;
+}
+
+@keyframes entrance-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, var(--entrance-rise), 0);
+  }
+}
+
+@keyframes entrance-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+/* `both` holds the from-state through the delay, so a staggered element does
+   not flash at full opacity before its turn. */
+@utility enter-rise {
+  animation: entrance-rise var(--entrance-duration) var(--ease-reveal) both;
+}
+
+@utility enter-fade {
+  animation: entrance-fade var(--entrance-duration) var(--ease-reveal) both;
 }
 
 /* ─── Tone-scoped semantics ──────────────────────────────────────────────
@@ -211,9 +245,31 @@
     *::before,
     *::after {
       animation-duration: 0.01ms !important;
+      /* Without this a delayed entrance leaves a hole where the content
+         should already be — the rule above only collapses the duration. */
+      animation-delay: 0ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
       scroll-behavior: auto !important;
+    }
+
+    /* The rule above only reaches CSS. Motion drives reveals from JS, so pin
+       the end state directly — this beats its inline styles on every frame and
+       makes the reveal a no-op. `transform`, not `translate`: the heroes'
+       lg:translate-y-* positioning lives on the other property. */
+    [data-reveal] {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+
+  /* Motion writes opacity:0 into the SSR HTML, so without this a reader with
+     JS off would never see a revealed section. An !important author rule
+     outranks a non-important inline style, with no JS involved. */
+  @media (scripting: none) {
+    [data-reveal] {
+      opacity: 1 !important;
+      transform: none !important;
     }
   }
 }

@@ -36,19 +36,24 @@ export function HomeHero() {
 
       <Container className="relative">
         <div className="grid items-center gap-12 lg:grid-cols-[1.15fr_1fr] lg:gap-14">
+          {/* Entrance is CSS, not <Reveal>: this is the LCP region and it must
+              paint on the first frame rather than wait for hydration. */}
           <div>
-            <h1 id="home-hero-title" className="text-4xl font-bold sm:text-5xl">
+            <h1
+              id="home-hero-title"
+              className="enter-rise text-4xl font-bold sm:text-5xl"
+            >
               We Build Digital Solutions That Drive Growth and{" "}
               <span className="text-orange">Transform Businesses.</span>
             </h1>
 
-            <p className="mt-6 max-w-xl text-on-surface-mute">
+            <p className="enter-rise mt-6 max-w-xl text-on-surface-mute delay-150">
               AfriZenith helps African businesses build powerful brands,
               streamline operations and grow sustainably through technology,
               strategy and creativity.
             </p>
 
-            <div className="mt-8 flex flex-wrap gap-4">
+            <div className="enter-rise mt-8 flex flex-wrap gap-4 delay-200">
               <CtaButton href="/contact" size="lg">
                 Let&apos;s Work Together
               </CtaButton>
@@ -62,13 +67,15 @@ export function HomeHero() {
               </CtaButton>
             </div>
 
-            <HeroTrustStrip className="mt-12" />
+            <HeroTrustStrip className="enter-rise mt-12 delay-300" />
           </div>
 
           <div className="relative lg:mb-12">
             {/* Keyed to real alpha from hero-map.png, so it composites over
                 the skyline with no backing plate and no blend mode. */}
-            <div className="relative aspect-square w-full">
+            {/* Fades rather than rises — the artwork is soft-edged and alpha
+                keyed, so travel would draw attention to its bounding box. */}
+            <div className="enter-fade relative aspect-square w-full delay-100">
               <Image
                 src="/images/hero-map-glow.png"
                 alt="A network of connected nodes spanning a map of Africa"
@@ -79,8 +86,12 @@ export function HomeHero() {
               />
             </div>
 
+            {/* The animation sits on an inner element so the positioning
+                transform on the wrapper is never overwritten. */}
             <div className="mt-6 lg:absolute lg:right-0 lg:bottom-0 lg:mt-0 lg:translate-y-1/4">
-              <MissionCard />
+              <div className="enter-rise delay-[400ms]">
+                <MissionCard />
+              </div>
             </div>
           </div>
         </div>

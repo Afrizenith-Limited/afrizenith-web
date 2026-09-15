@@ -2,12 +2,13 @@ import Image from "next/image";
 import { Section } from "@/components/layout/Section";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { CtaButton } from "@/components/shared/CtaButton";
+import { Reveal } from "@/components/motion/Reveal";
 
 export function OurStorySection() {
   return (
     <Section tone="light" aria-labelledby="story-title">
       <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-        <div>
+        <Reveal from="left">
           <SectionHeading
             id="story-title"
             eyebrow="Our Story"
@@ -34,17 +35,19 @@ export function OurStorySection() {
           <CtaButton href="/contact" variant="solid-ink" size="lg" className="mt-8">
             Let&apos;s Work Together
           </CtaButton>
-        </div>
+        </Reveal>
 
-        <div className="relative aspect-4/3 w-full overflow-hidden rounded-lg">
-          <Image
-            src="/images/the-why-photo.png"
-            alt="The AfriZenith team working together around a laptop"
-            fill
-            sizes="(min-width: 1024px) 50vw, 100vw"
-            className="object-cover"
-          />
-        </div>
+        <Reveal from="right">
+          <div className="relative aspect-4/3 w-full overflow-hidden rounded-lg">
+            <Image
+              src="/images/the-why-photo.png"
+              alt="The AfriZenith team working together around a laptop"
+              fill
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="object-cover"
+            />
+          </div>
+        </Reveal>
       </div>
     </Section>
   );

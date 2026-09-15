@@ -2,6 +2,7 @@
 
 import { useActionState, useState } from "react";
 import { Loader2, Send } from "lucide-react";
+import { cn } from "cn";
 import { Button } from "@/components/ui/button";
 import { submitContact } from "@/app/contact/actions";
 import {
@@ -82,34 +83,54 @@ export function ContactForm() {
           error={state.errors?.message}
         />
 
+        {/* Both labels occupy the same grid cell, so the button is as wide as
+            the longer of the two and never resizes mid-submit. */}
         <Button
           type="submit"
           size="lg"
           disabled={pending}
+          aria-busy={pending}
           className="sm:self-start"
         >
-          {pending ? (
-            <>
-              <Loader2 className="animate-spin" aria-hidden="true" />
-              Sending…
-            </>
-          ) : (
-            <>
+          <span className="grid place-items-center">
+            <span
+              aria-hidden={pending}
+              className={cn(
+                "col-start-1 row-start-1 inline-flex items-center gap-2.5 transition-opacity duration-150 ease-out",
+                pending ? "opacity-0" : "opacity-100",
+              )}
+            >
               Send Message
               <Send aria-hidden="true" />
-            </>
-          )}
+            </span>
+
+            <span
+              aria-hidden={!pending}
+              className={cn(
+                "col-start-1 row-start-1 inline-flex items-center gap-2.5 transition-opacity duration-150 ease-out",
+                pending ? "opacity-100" : "opacity-0",
+              )}
+            >
+              {/* The spinner is frozen under reduced motion, so the label is
+                  what actually communicates the pending state. */}
+              <Loader2 className="animate-spin" aria-hidden="true" />
+              Sending…
+            </span>
+          </span>
         </Button>
 
-        {/* Region exists before submit so the message is announced on arrival. */}
+        {/* Region exists before submit so the message is announced on arrival.
+            Only the <p> animates — the live region itself is never wrapped or
+            remounted, which would risk a stale or duplicated announcement. */}
         <div aria-live="polite" role="status">
           {state.status !== "idle" && state.message && (
             <p
-              className={
+              className={cn(
+                "enter-rise rounded-md border px-4 py-3 text-sm [--entrance-duration:240ms] [--entrance-rise:0.5rem]",
                 state.status === "success"
-                  ? "rounded-md border border-hairline bg-background/40 px-4 py-3 text-sm text-on-surface"
-                  : "rounded-md border border-destructive/40 px-4 py-3 text-sm text-destructive"
-              }
+                  ? "border-hairline bg-background/40 text-on-surface"
+                  : "border-destructive/40 text-destructive",
+              )}
             >
               {state.message}
             </p>

@@ -205,6 +205,37 @@ On desktop:
 -   Avoid excessively wide text blocks.
 -   Use imagery to balance content.
 
+## Motion
+
+Two systems, split by whether the content is above the fold.
+
+**Above the fold — CSS, no JavaScript.** The heroes and the contact page use
+the `enter-rise` and `enter-fade` utilities from `globals.css`, sequenced with
+`delay-*`. These run at first paint, so the headline never waits on hydration
+and the LCP image is never inside a fading element.
+
+**Below the fold — `<Reveal>`** (`components/motion/Reveal.tsx`), backed by
+Motion. Reveals re-fire each time an element scrolls back into view.
+
+| Value | Setting |
+|---|---|
+| Entrance curve | `cubic-bezier(0.22, 1, 0.36, 1)` (`--ease-reveal`) |
+| Entrance duration | 500ms |
+| Vertical travel | 28px reveals, 1rem (`--entrance-rise`) CSS entrances |
+| Horizontal travel | 48px |
+| Stagger | 80ms per item, capped at the 5th |
+| Hover / focus | 200ms, ring and colour 150ms |
+
+`effect="bounce"` applies a spring for cards and tiles. Type never bounces —
+overshoot on text reads as a wobble.
+
+Timings live in `lib/motion.ts` and are mirrored as CSS custom properties in
+`globals.css`; change both together.
+
+Reduced motion and no-JS are handled by the `[data-reveal]` rules in
+`globals.css`, never by branching in a component — a JS branch would render a
+different style attribute on the client than on the server.
+
 ## Visual Restraint
 
 When unsure whether to add a visual effect, do not add it.

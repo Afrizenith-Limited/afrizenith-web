@@ -47,8 +47,13 @@ export function ContactField({
   } as const;
 
   return (
-    <div className={cn("flex flex-col gap-2", className)}>
-      <Label htmlFor={name}>{label}</Label>
+    <div className={cn("group/field flex flex-col gap-2", className)}>
+      <Label
+        htmlFor={name}
+        className="transition-colors duration-150 ease-out group-focus-within/field:text-brand"
+      >
+        {label}
+      </Label>
 
       {multiline ? (
         <Textarea {...shared} rows={5} className="min-h-32 py-3" />
@@ -56,8 +61,13 @@ export function ContactField({
         <Input {...shared} type={type} className="h-11 px-3" />
       )}
 
+      {/* Short and quick — an error is an interruption, and four arriving at
+          once must not turn into a performance. */}
       {error && (
-        <p id={errorId} className="text-sm text-destructive">
+        <p
+          id={errorId}
+          className="enter-rise text-sm text-destructive [--entrance-duration:180ms] [--entrance-rise:0.25rem]"
+        >
           {error}
         </p>
       )}

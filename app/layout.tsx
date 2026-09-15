@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
+import { MotionProvider } from "@/components/motion/MotionProvider";
 import { SITE } from "@/config/site";
 import "./globals.css";
 
@@ -36,8 +37,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${display.variable} ${body.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
+        {/* Covers browsers without @media (scripting: none); same rule. */}
+        <noscript>
+          <style>{`[data-reveal]{opacity:1!important;transform:none!important}`}</style>
+        </noscript>
+
         <SiteHeader />
-        <main className="flex-1">{children}</main>
+        <main className="flex-1">
+          <MotionProvider>{children}</MotionProvider>
+        </main>
         <SiteFooter />
       </body>
     </html>

@@ -11,14 +11,15 @@ export function ProjectTile({ title, category, image, href }: Project) {
         alt={image.alt}
         fill
         sizes="(min-width: 1280px) 25vw, (min-width: 640px) 50vw, 100vw"
-        className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+        className="object-cover transition-transform duration-300 ease-out group-hover:scale-[1.03] group-focus-visible:scale-[1.03]"
       />
       {/* Legibility scrim for the overlaid label — the one gradient on the site. */}
       <div
         aria-hidden="true"
         className="absolute inset-0 bg-linear-to-t from-ink from-5% via-ink/80 via-30% to-transparent to-60%"
       />
-      <div className="absolute inset-x-0 bottom-0 p-5">
+      {/* Moves with the image so the tile reads as one object. */}
+      <div className="absolute inset-x-0 bottom-0 p-5 transition-transform duration-300 ease-out group-hover:-translate-y-0.5 group-focus-visible:-translate-y-0.5">
         <h3 className="font-heading text-base font-semibold text-white">
           {title}
         </h3>

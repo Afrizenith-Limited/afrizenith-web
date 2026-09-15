@@ -1,14 +1,28 @@
 import { ChevronRight } from "lucide-react";
+import { Reveal } from "@/components/motion/Reveal";
 import type { ProcessStep as ProcessStepData } from "@/types/content";
+
+interface ProcessStepProps extends ProcessStepData {
+  /** Position in the list, for the stagger. */
+  index: number;
+}
 
 export function ProcessStep({
   step,
   title,
   description,
   icon: Icon,
-}: ProcessStepData) {
+  index,
+}: ProcessStepProps) {
   return (
-    <li className="group relative lg:pr-8">
+    // Reveal renders the <li> itself rather than wrapping it: a wrapper would
+    // make every step the last child of its own element and hide every chevron.
+    <Reveal
+      as="li"
+      index={index}
+      effect="bounce"
+      className="group relative lg:pr-8"
+    >
       <span className="inline-flex size-12 items-center justify-center rounded-full bg-icon-well">
         <Icon aria-hidden="true" className="size-5 text-orange" />
       </span>
@@ -25,6 +39,6 @@ export function ProcessStep({
       >
         <ChevronRight className="size-4 text-orange" />
       </span>
-    </li>
+    </Reveal>
   );
 }

@@ -1,6 +1,7 @@
 import { Quote } from "lucide-react";
 import { Section } from "@/components/layout/Section";
 import { Eyebrow } from "@/components/shared/Eyebrow";
+import { Reveal } from "@/components/motion/Reveal";
 import { TESTIMONIALS } from "@/config/testimonials";
 
 export function TestimonialsSection() {
@@ -9,7 +10,7 @@ export function TestimonialsSection() {
 
   return (
     <Section tone="dark" aria-labelledby="testimonials-title">
-      <div className="flex gap-6">
+      <Reveal from="left" className="flex gap-6">
         <Quote
           aria-hidden="true"
           className="hidden size-12 shrink-0 text-orange sm:block"
@@ -23,7 +24,7 @@ export function TestimonialsSection() {
             — {featured.attribution}
           </p>
         </div>
-      </div>
+      </Reveal>
     </Section>
   );
 }

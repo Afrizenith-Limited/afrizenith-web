@@ -42,7 +42,18 @@ export function CtaButton({
       className={cn(buttonVariants({ variant, size }), className)}
     >
       {children}
-      {Icon && <Icon aria-hidden="true" />}
+      {/* The down arrow previews an in-page jump, so it nudges the way it points. */}
+      {Icon && (
+        <Icon
+          aria-hidden="true"
+          className={cn(
+            "transition-transform duration-200 ease-out",
+            icon === "arrow-down"
+              ? "group-hover/button:translate-y-0.5"
+              : "group-hover/button:translate-x-0.5",
+          )}
+        />
+      )}
     </Link>
   );
 }
