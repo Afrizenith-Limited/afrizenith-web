@@ -1,0 +1,219 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ─── Brand ramp — fixed values, never re-scoped by tone ─────────────────
+   Palette: #0A66FF #FF8A00 #0B1F44 #E6F2FF #FFC107 #6B7280.
+   The -hover / -light / -deep shades are derived, not supplied: hover states
+   and the AA-safe variants below need them.
+   ──────────────────────────────────────────────────────────────────── */
+@theme {
+  --color-ink: #0b1f44;
+  --color-ink-raised: #13294f;
+  --color-paper: #ffffff;
+  --color-tint: #e6f2ff;
+  --color-tint-deep: #d3e6fd;
+
+  --color-blue: #0a66ff;
+  --color-blue-hover: #0052d6;
+  --color-blue-deep: #005ce6;
+  --color-blue-light: #5b9dff;
+
+  --color-orange: #ff8a00;
+  --color-orange-hover: #e57c00;
+  --color-amber: #ffc107;
+  --color-slate: #6b7280;
+
+  --container-content: 75rem;
+}
+
+/* ─── Tone-scoped semantics ──────────────────────────────────────────────
+   Sections carry tone; the site has no theme. <Section> stamps data-tone
+   and these re-point. The @theme inline block below turns them into
+   utilities that resolve at the element, so `text-on-surface` is correct
+   in every tone with no conditional classes. shadcn's own tokens are
+   re-pointed alongside, so its primitives inherit tone for free.
+
+   --brand is the accent-TEXT role and must clear 4.5:1 on its own ground:
+     #0a66ff is 4.82:1 on white but only 3.37:1 on navy, so dark tone
+     lightens it to #5b9dff (5.96:1).
+   Orange and amber are highlight-only on light grounds (2.36:1 and 1.63:1
+   on white); they carry text solely on navy, where they reach 6.87 and 9.96.
+   --icon-well is a wash of the icon colour itself rather than a blue tint,
+   so the well reads as a halo around the glyph instead of clashing with it.
+   ──────────────────────────────────────────────────────────────────── */
+:root,
+[data-tone="light"] {
+  --surface: var(--color-paper);
+  --surface-raised: var(--color-paper);
+  --on-surface: var(--color-ink);
+  --on-surface-mute: var(--color-slate);
+  --hairline: #dbe6f5;
+  --brand: var(--color-blue);
+  --icon-well: color-mix(in srgb, var(--color-orange) 12%, var(--color-paper));
+
+  --background: var(--color-paper);
+  --foreground: var(--color-ink);
+  --card: var(--color-paper);
+  --card-foreground: var(--color-ink);
+  --popover: var(--color-paper);
+  --popover-foreground: var(--color-ink);
+  --secondary: var(--color-tint);
+  --secondary-foreground: var(--color-ink);
+  --muted: #f3f7fd;
+  --muted-foreground: var(--color-slate);
+  --accent: var(--color-tint);
+  --accent-foreground: var(--color-ink);
+  --destructive: #b3261e;
+  --border: #dbe6f5;
+  --input: #dbe6f5;
+}
+
+/* On the tint band #6b7280 drops to 4.26:1 and #0a66ff to 4.25:1, so muted
+   text and the accent both deepen a step here. */
+[data-tone="soft"] {
+  --surface: var(--color-tint);
+  --surface-raised: var(--color-paper);
+  --on-surface: var(--color-ink);
+  --on-surface-mute: #5a6170;
+  --hairline: #cfe0f7;
+  --brand: var(--color-blue-deep);
+  --icon-well: color-mix(in srgb, var(--color-orange) 16%, var(--color-paper));
+
+  --background: var(--color-tint);
+  --foreground: var(--color-ink);
+  --card: var(--color-paper);
+  --card-foreground: var(--color-ink);
+  --popover: var(--color-paper);
+  --popover-foreground: var(--color-ink);
+  --secondary: var(--color-tint-deep);
+  --secondary-foreground: var(--color-ink);
+  --muted: #dceafb;
+  --muted-foreground: #5a6170;
+  --accent: var(--color-tint-deep);
+  --accent-foreground: var(--color-ink);
+  --destructive: #b3261e;
+  --border: #cfe0f7;
+  --input: #cfe0f7;
+}
+
+[data-tone="dark"] {
+  --surface: var(--color-ink);
+  --surface-raised: var(--color-ink-raised);
+  --on-surface: #ffffff;
+  --on-surface-mute: #a8b3c7;
+  --hairline: #1f3a66;
+  --brand: var(--color-blue-light);
+  --icon-well: color-mix(in srgb, var(--color-orange) 16%, var(--color-ink-raised));
+
+  --background: var(--color-ink);
+  --foreground: #ffffff;
+  --card: var(--color-ink-raised);
+  --card-foreground: #ffffff;
+  --popover: var(--color-ink-raised);
+  --popover-foreground: #ffffff;
+  --secondary: var(--color-ink-raised);
+  --secondary-foreground: #ffffff;
+  --muted: #17305c;
+  --muted-foreground: #a8b3c7;
+  --accent: #17305c;
+  --accent-foreground: #ffffff;
+  --destructive: #ff6b61;
+  --border: #1f3a66;
+  --input: #2a4a7d;
+}
+
+/* Blue fill with a white label is 4.82:1 on either ground, so primary stays
+   tone-independent. */
+:root {
+  --primary: var(--color-blue);
+  --primary-foreground: #ffffff;
+  --radius: 0.5rem;
+}
+
+/* ─── Tone-aware utilities ───────────────────────────────────────────── */
+@theme inline {
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-on-surface: var(--on-surface);
+  --color-on-surface-mute: var(--on-surface-mute);
+  --color-hairline: var(--hairline);
+  --color-brand: var(--brand);
+  --color-icon-well: var(--icon-well);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--brand);
+
+  --font-sans: var(--font-body);
+  --font-heading: var(--font-display);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Tone-scoped so the ring stays visible on navy as well as white. */
+  :focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background: var(--color-blue);
+    color: #ffffff;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
