@@ -16,6 +16,7 @@ and rendered as Server Components except where interaction requires otherwise.
 | Primitives | shadcn/ui on `@base-ui/react` |
 | Icons | `lucide-react`, `react-icons` |
 | Fonts | `next/font` — Poppins (display), Inter (body) |
+| Email | Resend (contact form) |
 
 ## Getting started
 
@@ -37,12 +38,17 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Environment
 
+`RESEND_API_KEY` is the only environment variable — it is the only secret.
+Everything else (site URL, contact addresses) is a non-sensitive constant in
+[config/site.ts](config/site.ts).
+
 | Variable | Required | Purpose |
 |---|---|---|
-| `NEXT_PUBLIC_SITE_URL` | Production only | Absolute origin used for `metadataBase`, canonical URLs, the sitemap and Open Graph images. Falls back to `http://localhost:3000`. |
+| `RESEND_API_KEY` | To send mail | Resend API key. Without it, contact submissions fail with a handled error rather than sending. |
 
-Set it in `.env.local` locally, or in the hosting provider's dashboard. Env
-files are gitignored — never commit secrets.
+Copy [.env.example](.env.example) to `.env.local` and fill it in, or set it in
+the hosting provider's dashboard. Env files are gitignored — never commit
+secrets.
 
 ## Project structure
 
@@ -56,7 +62,7 @@ components/
   sections/             Page sections, grouped by route (home, about, contact)
   shared/               Cross-page pieces (CtaButton, SectionHeading, Logo, …)
 config/                 Site details, navigation and page content as typed data
-lib/                    Utilities and contact form validation
+lib/                    Contact validation, Resend delivery, utilities
 types/                  Shared content types
 docs/                   Design system and working guidelines
 public/images/          Brand and section imagery
@@ -77,9 +83,12 @@ Server Action via `useActionState`, so it works without JavaScript. Validation
 is hand-rolled in [lib/contact-schema.ts](lib/contact-schema.ts) and runs on the
 server; errors are returned per field with the submitted values echoed back.
 
-**Submissions are not yet delivered anywhere** — the action logs them to the
-server terminal. Wire up an email provider in
-[app/contact/actions.ts](app/contact/actions.ts) before launch.
+Valid submissions are emailed through Resend by
+[lib/contact.ts](lib/contact.ts), which renders a branded HTML email (plus a
+plain-text alternative) with the visitor's address as `replyTo`. Every submitted
+value is HTML-escaped before it reaches the template. Send failures are logged
+server-side; the visitor sees a plain apology with the direct email address, and
+their input is preserved.
 
 ## Before launch
 
@@ -89,7 +98,9 @@ design reference, not from the business. Confirm them first:
 - Phone number (drives the displayed text, the `tel:` link and the WhatsApp link)
 - Email address and office location
 - Social profile URLs — currently platform homepages
-- Set `NEXT_PUBLIC_SITE_URL` to the production domain
+- `SITE.url` — currently `https://afrizenith.com`; set it to the real domain
+- `CONTACT_FROM_EMAIL` — currently Resend's test sender, which only delivers to
+  the account owner. Verify a domain in Resend and use an address on it.
 
 ## Working on this project
 
