@@ -10,6 +10,13 @@ export const SERVICES: Service[] = [
     icon: Globe,
   },
   {
+    slug: "mobile-apps",
+    title: "Mobile App Development",
+    description:
+      "We create intuitive and engaging mobile applications for iOS and Android platforms.",
+    icon: Globe,
+  },
+  {
     slug: "business-growth",
     title: "Business Growth",
     description:
@@ -30,4 +37,11 @@ export const SERVICES: Service[] = [
       "We craft strong brands and stunning designs that make your business stand out.",
     icon: PenTool,
   },
+  {
+    slug: "tech-staff-leasing",
+    title: "Tech Staff Leasing",
+    description:
+      "We provide skilled tech professionals to help you scale your team and achieve your goals.",
+    icon: Cog,
+  }
 ];
