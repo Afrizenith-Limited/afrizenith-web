@@ -1,4 +1,4 @@
-import { Cog, Globe, PenTool, TrendingUp } from "lucide-react";
+import { Cog, Globe, PenTool, Smartphone, TrendingUp, Users } from "lucide-react";
 import type { Service } from "@/types/content";
 
 export const SERVICES: Service[] = [
@@ -14,7 +14,7 @@ export const SERVICES: Service[] = [
     title: "Mobile App Development",
     description:
       "We create intuitive and engaging mobile applications for iOS and Android platforms.",
-    icon: Globe,
+    icon: Smartphone,
   },
   {
     slug: "business-growth",
@@ -42,6 +42,6 @@ export const SERVICES: Service[] = [
     title: "Tech Staff Leasing",
     description:
       "We provide skilled tech professionals to help you scale your team and achieve your goals.",
-    icon: Cog,
+    icon: Users,
   }
 ];

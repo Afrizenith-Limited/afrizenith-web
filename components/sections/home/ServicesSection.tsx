@@ -22,7 +22,7 @@ export function ServicesSection() {
         />
       </Reveal>
 
-      <div className="mt-14 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="mt-14 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
         {SERVICES.map((service, i) => (
           // h-full moves onto the Reveal: it is the grid item now, and IconCard
           // stretches to it.
